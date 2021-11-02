@@ -21,6 +21,9 @@ std::unique_ptr<router_t > map::create_server_handler()
 
 	// Handler for '/sessions/:sessionid/areas/:areaid' path.
 	router->http_get("/sessions/:session_id/areas/:area_id", callHandler( &MapRequestHandler::get_area ) );
+	
+	// Handler for '/health
+	router->http_get("/health", callHandler( &MapRequestHandler::health_check ) );
 
 	router->non_matched_request_handler(
 		[]( auto req ) {

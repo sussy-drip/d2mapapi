@@ -83,3 +83,11 @@ restinio::request_handling_status_t MapRequestHandler::delete_session( const res
 
 	return resp.done();
 }
+
+restinio::request_handling_status_t MapRequestHandler::health_check(const restinio::request_handle_t& req, const restinio::router::route_params_t& params)
+{
+	std::scoped_lock lock(m);
+	auto resp = init_resp(req->create_response());
+	resp.set_body("{ \"status\": \"ok\", \"status_code\": \"200\" }");
+	return resp.done();
+}
